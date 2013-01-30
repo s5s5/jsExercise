@@ -36,7 +36,7 @@
 					});
 					Crafty("BigPoints").each(function () {
 						this.points2 = this.points2 + 1;
-						this.text("Your Catch " + this.points2 + " Gold!!! F5 Restart")
+						this.text("Your Catch " + this.points2 + " Gold!!!<br> F5 Restart")
 					});
 				})
 	}
@@ -101,8 +101,8 @@
 			.attr({ x: 270, y: -250, w: 279, h: 86 });
 	Crafty.e("BigPoints, DOM, 2D, Text")
 			.attr({ x: 300, y: -250, w: 200, h: 50, points2: 0 })
-			.css({'font-size': '16px','color':'#FFE983','fontFamily':'Verdana' ,'textAlign':'center','padding':'10px','lineHeight':'25px','opacity':'50','borderRadius':'10px'})
-			.text("Your Catch 0 Gold!!! F5 Restart")
+			.css({'font-size': '16px','color':'#FFE983','fontFamily':'Verdana' ,'textAlign':'center','padding':'10px','lineHeight':'25px','borderRadius':'10px'})
+			.text("Your Catch 0 Gold!!!<br> F5 Restart")
 			.bind('Click', function () {
 				Crafty.init(800, 600);
 			});
