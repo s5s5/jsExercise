@@ -8,29 +8,27 @@
 <body>
 <script>
 	Crafty.init(800, 600);
-	Crafty.background('rgb(168,168,168)');
+	Crafty.background('url(bg.png)');
 
-	//Paddles
-	Crafty.e("Paddle, 2D, DOM, Color, Multiway")
-			.color('rgb(255,255,255)')
-			.attr({ x: 350, y: 550, w: 100, h: 10 })
+	//Snake
+	Crafty.e("Snake, 2D, DOM, Image, Multiway")
+			.image('s.png')
+			.attr({ x: 345, y: 494, w: 107, h: 106 })
 			.multiway(8, { LEFT_ARROW: 180, RIGHT_ARROW: 0 });
 
-	//Ball
-	function Ball() {
-		Crafty.e("2D, DOM, Color, Collision")
-				.color('rgb(255,255,0)')
-				.attr({ x: 395, y: 10, w: 10, h: 10, dY: Crafty.math.randomInt(2, 10)
-				})
+	//Bullion
+	function Bullion() {
+		Crafty.e("2D, DOM, Image, Collision")
+				.image('m.png')
+				.attr({ x: 370, y: -53, w: 54, h: 53, dY: Crafty.math.randomInt(2, 8)})
 				.bind('EnterFrame', function () {
 					if (this.y > 600) {
-						this.y = 10;
-						this.x = Crafty.math.randomNumber(10, 790)
+						this.y = -53;
+						this.x = Crafty.math.randomNumber(1, 700)
 					}
-
 					this.y += this.dY;
 				})
-				.onHit('Paddle', function () {
+				.onHit('Snake', function () {
 					this.y = 10;
 					this.x = Crafty.math.randomNumber(10, 790);
 					Crafty("LeftPoints").each(function () {
@@ -38,42 +36,45 @@
 					});
 					Crafty("BigPoints").each(function () {
 						this.points2 = this.points2 + 1;
-						this.text("Your Catch " + this.points2 + " Gold!!!!! F5 Restatr")
+						this.text("Your Catch " + this.points2 + " Gold!!! F5 Restart")
 					});
 				})
 	}
-	function Bullnums(num) {
+	function BullionNum(num) {
 		for (var i = 0; i < num; i++) {
-			Ball();
+			Bullion();
 		}
 	}
-	Bullnums(8);
+	BullionNum(8);	//set Bullion Number
 
 
-	//Black ball
-	Crafty.e("2D, DOM, Color, Collision")
-			.color('rgb(0,0,0)')
-			.attr({ x: 395, y: 10, w: 10, h: 10, dY: Crafty.math.randomInt(2, 10)
-			})
+	//Bomb
+	Crafty.e("2D, DOM, Image, Collision")
+			.image('z.png')
+			.attr({ x: 370, y: -53, w: 54, h: 66, dY: Crafty.math.randomInt(2, 10)})
 			.bind('EnterFrame', function () {
 				if (this.y > 600) {
-					this.y = 10;
-					this.x = Crafty.math.randomNumber(10, 790)
+					this.y = -53;
+					this.x = Crafty.math.randomNumber(1, 700)
 				}
 				this.y += this.dY;
 			})
-			.onHit('Paddle', function () {
+			.onHit('Snake', function () {
 				Gover();
 			});
 
 	//Score boards
 	Crafty.e("LeftPoints, DOM, 2D, Text")
 			.attr({ x: 20, y: 20, w: 100, h: 20, points: 0 })
+			.textFont({ family: 'Verdana' })
+			.textColor('#FFE983')
 			.text("0 Gold");
 
 	//Clock boards
 	Crafty.e("Clock, DOM, 2D, Text")
 			.attr({ x: 760, y: 20, w: 20, h: 20 })
+			.textFont({ family: 'Verdana' })
+			.textColor('#FFE983')
 			.text('60');
 	function nums(f) {
 		Crafty("Clock").each(function () {
@@ -91,23 +92,28 @@
 			setTimeout(_nums(i), tims);
 		}
 	}
-	Clocks(30);
-	setTimeout("Gover()", 30100);
+	Clocks(30);	//set clock show
+	setTimeout("Gover()", 30100);	//set clock
 
-	//Gameover
+	//Game Over
+	Crafty.e("BigPointsBG, 2D, DOM, Image, Collision")
+			.image('hp.png')
+			.attr({ x: 270, y: -250, w: 279, h: 86 });
 	Crafty.e("BigPoints, DOM, 2D, Text")
-			.attr({ x: -200, y: 250, w: 200, h: 100, points2: 0 })
-			.textColor('#FF0000')
-			.css({"font-size": "20px"})
-			.text("Your Catch 0 Gold!!!!! F5 Restatr")
+			.attr({ x: 300, y: -250, w: 200, h: 50, points2: 0 })
+			.css({'font-size': '16px','color':'#FFE983','fontFamily':'Verdana' ,'textAlign':'center','padding':'10px','lineHeight':'25px','opacity':'50','borderRadius':'10px'})
+			.text("Your Catch 0 Gold!!! F5 Restart")
 			.bind('Click', function () {
 				Crafty.init(800, 600);
 			});
 	function Gover() {
-		Crafty("BigPoints").each(function () {
-			this.x = 330;
+		Crafty("BigPointsBG").each(function () {
+			this.y = 40;
 		});
-		Crafty.stop();
+		Crafty("BigPoints").each(function () {
+			this.y = 50;
+		});
+		setTimeout("Crafty.stop()", 10);
 	}
 
 </script>
