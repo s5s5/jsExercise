@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title>换肤</title>
+    <link id="css" href="0131.css" rel="stylesheet">
+    <style>
+        a{display: block; padding: 10px;}
+        a:hover{background-color: #eee;}
+    </style>
+    <script>
+        function changCss(chref) {
+            var css = document.getElementById('css');
+            css.href = chref;
+        }
+         function toggerDiv() {
+             var div1 = document.getElementById('div1');
+             var jian1 = document.getElementById('jian1');
+             var jian2 = document.getElementById('jian2');
+             if (div1.style.display == 'none') {
+                 div1.style.display = 'block';
+                 jian1.style.display = 'block';
+                 jian2.style.display = 'none';
+             } else {
+                 div1.style.display = 'none';
+                 jian1.style.display = 'none';
+                 jian2.style.display = 'block';
+             }
+          }
+    </script>
+</head>
+<body>
+<button type="button" onclick="changCss('0131.css')">皮肤1</button> <button type="button" onclick="changCss('0132.css')">皮肤2</button>
+<div style="border:#000 solid 1px; width:200px;">
+    <div style="position: relative; padding: 10px; border-bottom: #000 solid 1px; cursor: pointer;" onclick="toggerDiv();">播放列表<span style="position: absolute; top: 10px; right: 10px;"><span id="jian1" style="display: none;">↑</span><span id="jian2">↓</span></span></div>
+    <div id="div1" style="display: none">
+        <a href="##">一一一一一</a>
+        <a href="##">一一一一一</a>
+        <a href="##">一一一一一</a>
+        <a href="##">一一一一一</a>
+        <a href="##">一一一一一</a>
+    </div>
+</div>
+</body>
+</html>

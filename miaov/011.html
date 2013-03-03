@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>鼠标显隐浮层</title>
+    <script>
+         function showDiv1() {
+             var div1 = document.getElementById('div1');
+             div1.style.display = 'block';
+          }
+          function hiddenDiv1() {
+              var div1 = document.getElementById('div1');
+              div1.style.display = 'none';
+          }
+    </script>
+</head>
+<body>
+<div style="position: relative; padding: 60px; float: left; border:#000 solid 1px;">
+    <img src="http://getimg.in/300x200tclock" style="position: relative; z-index: 1;" onmouseover="showDiv1();" onmouseout="hiddenDiv1();">
+    <div style="position: absolute; top: 30px; left: 30px; height: 200px; padding: 30px 30px 30px 360px; background-color: #eee; display: none;" id="div1">cat</div>
+</div>
+</body>
+</html>
