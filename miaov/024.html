@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>收缩展开菜单</title>
+	<style>
+		div{border:#333 solid 1px;}
+		.sort2{display:none; background-color:#0a0; padding-left:20px;}
+	</style>
+	<script>
+		window.onload =  function() {
+			var sort1 = document.getElementsByClassName('sort');
+			var sort2 = document.getElementsByClassName('sort2');
+			for (i = 0; i < sort1.length; i++) {
+				sort1[i].index = i;
+				sort1[i].onclick = function() {
+					if (sort2[this.index].style.display === 'block') {
+						sort2[this.index].style.display = 'none';
+					}
+					else {
+						for (f = 0; f < i; f++) {
+							sort2[f].style.display = 'none';
+						}
+						sort2[this.index].style.display = 'block';
+					}
+				};
+			}
+		}
+	</script>
+</head>
+<body>
+<div style="width:200px;">
+	<div class="sort">导航导航</div>
+	<div class="sort2">
+		<div>栏目栏目</div>
+		<div>栏目栏目</div>
+		<div>栏目栏目</div>
+	</div>
+	<div class="sort">导航导航</div>
+	<div class="sort2">
+		<div>栏目栏目</div>
+		<div>栏目栏目</div>
+		<div>栏目栏目</div>
+	</div>
+	<div class="sort">导航导航</div>
+	<div class="sort2">
+		<div>栏目栏目</div>
+		<div>栏目栏目</div>
+		<div>栏目栏目</div>
+	</div>
+</div>
+</body>
+</html>

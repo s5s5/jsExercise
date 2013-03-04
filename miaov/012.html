@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="utf-8">
-    <title>列表收缩展开</title>
-    <style>
-        a{display: block; padding: 10px;}
-        a:hover{background-color: #eee;}
-    </style>
-    <script>
-         function toggerDiv() {
-             var div1 = document.getElementById('div1');
-             var jian1 = document.getElementById('jian1');
-             var jian2 = document.getElementById('jian2');
-//             alert(div1);
-             if (div1.style.display == 'none') {
-                 div1.style.display = 'block';
-                 jian1.style.display = 'block';
-                 jian2.style.display = 'none';
-             } else {
-                 div1.style.display = 'none';
-                 jian1.style.display = 'none';
-                 jian2.style.display = 'block';
-             }
-          }
-    </script>
+	<meta charset="utf-8">
+	<title>列表收缩展开</title>
+	<style>
+		a{
+			display:block;
+			padding:10px;
+		}
+
+		a:hover{
+			background-color:#eee;
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			var oBtn = document.getElementById('btn');
+			var oDiv = document.getElementById('div1');
+			oBtn.onclick = function() {
+				var jian1 = document.getElementById('jian1');
+				var jian2 = document.getElementById('jian2');
+				if (oDiv.style.display === 'none') {
+					oDiv.style.display = 'block';
+					jian1.style.display = 'block';
+					jian2.style.display = 'none';
+				} else {
+					oDiv.style.display = 'none';
+					jian1.style.display = 'none';
+					jian2.style.display = 'block';
+				}
+			}
+		};
+	</script>
 </head>
 <body>
 <div style="border:#000 solid 1px; width:200px;">
-    <div style="position: relative; padding: 10px; border-bottom: #000 solid 1px; cursor: pointer;" onclick="toggerDiv();">播放列表<span style="position: absolute; top: 10px; right: 10px;"><span id="jian1" style="display: none;">↑</span><span id="jian2">↓</span></span></div>
-    <div id="div1" style="display: none">
-        <a href="##">一一一一一</a>
-        <a href="##">一一一一一</a>
-        <a href="##">一一一一一</a>
-        <a href="##">一一一一一</a>
-        <a href="##">一一一一一</a>
-    </div>
+	<div style="position: relative; padding: 10px; border-bottom: #000 solid 1px; cursor: pointer;" id="btn">播放列表<span style="position: absolute; top: 10px; right: 10px;"><span id="jian1" style="display: none;">↑</span><span id="jian2">↓</span></span>
+	</div>
+	<div id="div1" style="display: none">
+		<a href="##">一一一一一</a> <a href="##">一一一一一</a> <a href="##">一一一一一</a> <a href="##">一一一一一</a>
+		<a href="##">一一一一一</a>
+	</div>
 </div>
 </body>
 </html>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>二级导航菜单</title>
+	<style>
+		div{border:#000 solid 1px; background-color:#fff;}
+		.item{position:relative;}
+		.item div{position:absolute; top:0; left:199px;width:200px;display:none;}
+	</style>
+	<script>
+		window.onload =  function() {
+			var btn = document.getElementById('btn');
+			var pop = document.getElementById('pop');
+			var item = document.getElementsByClassName('item');
+			var hit = document.getElementsByClassName('hit');
+
+			btn.onclick = function() {
+				if (pop.style.display === 'none') {
+					pop.style.display = 'block';
+				}
+				else {
+					pop.style.display = 'none';
+				}
+			};
+
+			for (i = 0; i < item.length; i++) {
+				item[i].index = i;
+				item[i].onmouseover = function() {
+					hit[this.index].style.display = 'block';
+				};
+				item[i].onmouseout = function() {
+					hit[this.index].style.display = 'none';
+				};
+			}
+		}
+	</script>
+</head>
+<body>
+<div style="width:200px;">
+	<div id="btn">所有分类</div>
+	<div id="pop" style="display:none;">
+		<div class="item">
+			话费网游
+			<div class="hit">一一一一一一一一 一一五</div>
+		</div>
+		<div class="item">
+			话费网游
+			<div class="hit">一一一一一一一一 一一五</div>
+		</div>
+		<div class="item">
+			话费网游
+			<div class="hit">一一一一一一一一 一一五</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

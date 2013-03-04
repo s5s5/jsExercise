@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>电影评分</title>
+	<style>
+		span{display:inline-block; width:11px; height:11px; border:#333 solid 1px; margin-right:3px; vertical-align:-1px;}
+		.chk{background-color:#0a0;}
+	</style>
+	<script>
+		window.onload =  function() {
+			var spans = document.getElementsByTagName('span');
+			for (i = 0; i < spans.length; i++) {
+				spans[i].index = i;
+				spans[i].onmouseover = function() {
+					for (f = 0; f < i; f++) {
+						spans[f].className = '';
+					}
+					for (j = 0; j <= this.index; j++) {
+						spans[j].className = 'chk';
+					}
+				};
+				spans[i].onclick = function() {
+					alert(this.index + 1);
+				};
+			}
+		}
+	</script>
+</head>
+<body>
+打个分吧<br>
+<span></span><span></span><span></span><span></span><span></span>
+</body>
+</html>

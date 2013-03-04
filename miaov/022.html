@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>自定义单选框</title>
+	<style>
+		input{width:0; height:0;}
+		span{display:inline-block; width:11px; height:11px; border:#333 solid 1px; margin-right:3px; vertical-align:-1px;}
+		.chk{background-color:#0a0;}
+	</style>
+	<script>
+		window.onload =  function() {
+			var items = document.getElementsByTagName('label');
+			var ipts = document.getElementsByTagName('input');
+			var spans = document.getElementsByTagName('span');
+//			spans[1].className = 'chk';
+			for (i = 0; i < items.length; i++) {
+				items[i].index = i;
+				items[i].onclick = function() {
+					if (ipts[this.index].checked === false) {
+						ipts[this.index].checked = true;
+						spans[this.index].className = 'chk';
+					}
+					else {
+						ipts[this.index].checked = false;
+						spans[this.index].className = '';
+					}
+				};
+			}
+		}
+	</script>
+</head>
+<body>
+周六打算干什么？<br>
+<label><input type="checkbox"><span></span>抽烟</label><br>
+<label><input type="checkbox"><span></span>唱酒</label><br>
+<label><input type="checkbox"><span></span>打麻将</label><br>
+</body>
+</html>
