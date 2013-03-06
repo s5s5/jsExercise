@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="utf-8">
+	<title>百度时间效果</title>
+	<script>
+		window.onload = function() {
+			var oDiv = document.getElementById('div1');
+			function clock() {
+				var oDate = new Date();
+				oDiv.innerHTML = toDouble(oDate.getHours()) + ':' + toDouble(oDate.getMinutes()) + ':' + toDouble(oDate.getSeconds()) + '<br>' + oDate.getFullYear() + '年' + (oDate.getMonth() + 1) + '月' + oDate.getDate() + '日' + ' ' + toD(oDate.getDay());
+			}
+			function toDouble(num) {
+				if (num < 10) {
+					return '0' + num;
+				}
+				else {
+					return '' + num;
+				}
+			}
+			function toD(day) {
+				switch(day) {
+					case 0:
+						return '星期天';
+					case 1:
+						return '星期一';
+					case 2:
+						return '星期二';
+					case 3:
+						return '星期三';
+					case 4:
+						return '星期四';
+					case 5:
+						return '星期五';
+					case 6:
+						return '星期六';
+				}
+			}
+			clock();
+			t = setInterval(clock, 1000);
+		};
+	</script>
+</head>
+<body>
+<div id="div1"></div>
+<button type="button" onclick="clearInterval(t);">stop</button>
+</body>
+</html>
