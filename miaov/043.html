@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="utf-8">
+	<title>简单图片展示效果</title>
+	<style>
+		.picbox{width:432px; position:relative;}
+		.picbox #div1 img{float:left; width:144px; height:90px;}
+		.picbox #div1 img.bor{border:#7fff00 solid 2px; width:140px; height:86px;}
+		.bigbox{position:absolute; top:0; right:-432px;}
+		.bigbox img{width:432px;}
+	</style>
+	<script>
+		window.onload = function() {
+			var pics = ['w_meinv','w_mengchong','w_lvyoufengjing','w_sheying','w_bizhi','w_yulemingxing','w_qiche','w_chuangyisheji','w_dongmanyouxi'];
+			var imgs = document.getElementById('div1').getElementsByTagName('img');
+			var bimg = document.getElementById('img');
+			var str1 = 'http://img.baidu.com/img/image/liulanimage/';
+			var str2 = '.jpg';
+			for (var i = 0; i < imgs.length; i++) {
+				imgs[i].index = i;
+				imgs[i].onmouseover = function() {
+					for (var j = 0; j < imgs.length; j++) {
+						imgs[j].className = '';
+					}
+					this.className = 'bor';
+					bimg.src = str1 + pics[this.index] + str2;
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+<div class="picbox">
+	<div id="div1">
+		<img src="http://img.baidu.com/img/image/liulanimage/w_meinv.jpg" class="bor">
+		<img src="http://img.baidu.com/img/image/liulanimage/w_mengchong.jpg">
+		<img src="http://img.baidu.com/img/image/liulanimage/w_lvyoufengjing.jpg">
+		<img src="http://img.baidu.com/img/image/liulanimage/w_sheying.jpg">
+		<img src="http://img.baidu.com/img/image/liulanimage/w_bizhi.jpg">
+		<img src="http://img.baidu.com/img/image/liulanimage/w_yulemingxing.jpg">
+		<img src="http://img.baidu.com/img/image/liulanimage/w_qiche.jpg">
+		<img src="http://img.baidu.com/img/image/liulanimage/w_chuangyisheji.jpg">
+		<img src="http://img.baidu.com/img/image/liulanimage/w_dongmanyouxi.jpg">
+	</div>
+	<div class="bigbox"><img src="http://img.baidu.com/img/image/liulanimage/w_meinv.jpg" id="img"></div>
+</div>
+</body>
+</html>
