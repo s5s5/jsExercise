@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>按下鼠标上下移动</title>
+	<style>
+		img{display:block;}
+	</style>
+	<script>
+		window.onload = function() {
+			var pics = document.getElementById('pics');
+			var btn = document.getElementsByTagName('button');
+			var speed = 10;
+			pics.innerHTML += pics.innerHTML;
+			btn[0].onmousedown = function() {
+				speed = -10;
+				times1 = setInterval(go, 30);
+			};
+			btn[1].onmousedown = function() {
+				speed = 10;
+				times2 = setInterval(go, 30);
+			};
+			btn[0].onmouseup = function() {
+				clearInterval(times1);
+			};
+			 btn[1].onmouseup = function() {
+				clearInterval(times2);
+			};
+
+			function go() {
+				pics.style.top = pics.offsetTop + speed + 'px';
+				if (pics.offsetTop < - pics.offsetHeight / 2) {
+					pics.style.top = 0;
+				}
+				else if (pics.offsetTop > 0) {
+					console.log(pics.offsetTop);
+					console.log(pics.offsetHeight);
+					pics.style.top = - pics.offsetHeight / 2 + 'px';
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+<button type="button">↑↑↑</button>
+<div style="height:600px; width:300px; overflow:hidden; position:relative;">
+	<div id="pics" style="position:relative;">
+		<img src="http://getimg.in/300x200t4">
+		<img src="http://getimg.in/300x200t1">
+		<img src="http://getimg.in/300x200t2">
+		<img src="http://getimg.in/300x200t3">
+	</div>
+</div>
+<button type="button">↓↓↓</button>
+
+</div>
+</body>
+</html>
