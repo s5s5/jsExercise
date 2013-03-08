@@ -4,65 +4,90 @@
 	<meta charset="utf-8">
 	<title>站长之家导航条</title>
 	<style>
-		.nav{display:none; position:absolute; top:100px; left:10px; width:300px; background-color:#006;}
+		.nav{
+			position:absolute;
+			top:30px;
+			left:0;
+			white-space:nowrap;
+			display:none;
+			background-color:#efefef;
+			padding:5px;
+		}
+
+		.item{
+			float:left;
+			position:relative;
+			margin-right:10px;
+		}
 	</style>
 	<script>
-		window.onload = function() {
-			var nav = document.getElementById('nav').getElementsByTagName('a');
-			var nav2 = document.getElementsByClassName('nav');
-			var clock = null;
-			var clock2 = null;
-			for (var i = 0; i < nav.length; i++) {
-				nav.index = i;
-				nav[i].onmouseover = function() {
-					clock = setTimeout(function() {
-						nav2[nav.index].style.display = 'block';
-					}, 500)
+		window.onload = function () {
+			var anva = document.getElementsByClassName('anav');
+			var nav = document.getElementsByClassName('nav');
+			var clo = null;
+			for (var i = 0; i < anva.length; i++) {
+				anva[i].index = i;
+				anva[i].onmouseover = function () {
+					clearTimeout(clo);
+					f = this.index;
+					show(f);
 				};
-				nav2[i].onmouseover = function() {
-					clearTimeout(clock);
-					clearTimeout(clock2);
+				anva[i].onmouseout = function () {
+					f = this.index;
+					clo = setTimeout(function () {
+						hidden(f);
+					}, 1000)
+				};
+				nav[i].onmouseover = function() {
+					clearTimeout(clo);
 					this.style.display = 'block';
 				};
-				nav[i].onmouseout = nav2[i].onmouseout = function() {
-					clock2 = setTimeout(function() {
-						nav2[nav.index].style.display = 'none';
-					}, 500)
+				nav[i].onmouseout = function() {
+					this.style.display = 'none';
 				};
+			}
+			function show(f) {
+				for (var i = 0; i < anva.length; i++) {
+					nav[i].style.display = 'none'
+				}
+				nav[f].style.display = 'block';
+			}
+			function hidden(f) {
+				nav[f].style.display = 'none';
 			}
 		}
 	</script>
 </head>
 <body>
 <div id="nav">
-	<a href="#">首页</a>
-	<a href="#">下载</a>
-	<a href="#">文件</a>
-	<a href="#">反馈</a>
-</div>
-<div class="nav">
-	<a href="#">一是地</a>
-	<a href="#">男足</a>
-	<a href="#">陈城</a>
-	<a href="#">且大本营</a>
-</div>
-<div class="nav">
-	<a href="#">二百在</a>
-	<a href="#">男足</a>
-	<a href="#">陈城</a>
-	<a href="#">且大本营</a>
-</div>
-<div class="nav">
-	<a href="#">三左右</a>
-	<a href="#">男足</a>
-	<a href="#">陈城</a>
-	<a href="#">且大本营</a>
-</div>
-<div class="nav">
-	<a href="#">四雄才大略</a>
-	<a href="#">男足</a>
-	<a href="#">陈城</a>
-	<a href="#">且大本营</a>
+	<div class="item">
+		<a href="#" class="anav">首页</a>
+
+		<div class="nav">
+			<a href="#">一是地</a> <a href="#">一是地</a> <a href="#">一是地</a> <a href="#">一是地</a>
+		</div>
+	</div>
+	<div class="item">
+		<a href="#" class="anav">下载</a>
+
+		<div class="nav">
+			<a href="#">二百在</a> <a href="#">二百在</a> <a href="#">二百在</a> <a href="#">二百在</a>
+		</div>
+	</div>
+	<div class="item">
+		<a href="#" class="anav">文件</a>
+
+		<div class="nav">
+			<a href="#">三左右</a> <a href="#">三左右</a> <a href="#">三左右</a> <a href="#">三左右</a>
+		</div>
+	</div>
+	<div class="item">
+		<a href="#" class="anav">反馈</a>
+
+		<div class="nav">
+			<a href="#">四雄才</a> <a href="#">四雄才</a> <a href="#">四雄才</a> <a href="#">四雄才</a>
+		</div>
+	</div>
 </div>
 </body>
 </html>
