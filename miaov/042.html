@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>QQ延时提示框</title>
+	<style>
+		.qq{width:200px; height:200px; position:relative;}
+		img{display:block;}
+		#hint{position:absolute; top:0; left:205px; width:200px; height:200px; background-color:#123; color:#fff; display:none;}
+	</style>
+	<script>
+		window.onload = function() {
+			var pic = document.getElementById('pics');
+			var hint = document.getElementById('hint');
+			var clock = null;
+			var clock2 = null;
+			pic.onmouseover = function() {
+				clock = setTimeout(function() {
+					hint.style.display = 'block';
+				}, 500)
+			};
+			hint.onmouseover = function() {
+				clearTimeout(clock);
+				clearTimeout(clock2);
+				hint.style.display = 'block';
+			};
+			pic.onmouseout = hint.onmouseout = function() {
+				clock2 = setTimeout(function() {
+					hint.style.display = 'none';
+				}, 500)
+			};
+		}
+	</script>
+</head>
+<body>
+<div class="qq">
+	<img src="http://getimg.in/200x200tclock" id="pics">
+	<div id="hint">大家好，我是QQ提示框</div>
+</div>
+</body>
+</html>
