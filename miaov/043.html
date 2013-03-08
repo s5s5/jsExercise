@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>站长之家导航条</title>
+	<style>
+		.nav{display:none; position:absolute; top:100px; left:10px; width:300px; background-color:#006;}
+	</style>
+	<script>
+		window.onload = function() {
+			var nav = document.getElementById('nav').getElementsByTagName('a');
+			var nav2 = document.getElementsByClassName('nav');
+			var clock = null;
+			var clock2 = null;
+			for (var i = 0; i < nav.length; i++) {
+				nav.index = i;
+				nav[i].onmouseover = function() {
+					clock = setTimeout(function() {
+						nav2[nav.index].style.display = 'block';
+					}, 500)
+				};
+				nav2[i].onmouseover = function() {
+					clearTimeout(clock);
+					clearTimeout(clock2);
+					this.style.display = 'block';
+				};
+				nav[i].onmouseout = nav2[i].onmouseout = function() {
+					clock2 = setTimeout(function() {
+						nav2[nav.index].style.display = 'none';
+					}, 500)
+				};
+			}
+		}
+	</script>
+</head>
+<body>
+<div id="nav">
+	<a href="#">首页</a>
+	<a href="#">下载</a>
+	<a href="#">文件</a>
+	<a href="#">反馈</a>
+</div>
+<div class="nav">
+	<a href="#">一是地</a>
+	<a href="#">男足</a>
+	<a href="#">陈城</a>
+	<a href="#">且大本营</a>
+</div>
+<div class="nav">
+	<a href="#">二百在</a>
+	<a href="#">男足</a>
+	<a href="#">陈城</a>
+	<a href="#">且大本营</a>
+</div>
+<div class="nav">
+	<a href="#">三左右</a>
+	<a href="#">男足</a>
+	<a href="#">陈城</a>
+	<a href="#">且大本营</a>
+</div>
+<div class="nav">
+	<a href="#">四雄才大略</a>
+	<a href="#">男足</a>
+	<a href="#">陈城</a>
+	<a href="#">且大本营</a>
+</div>
+</body>
+</html>
