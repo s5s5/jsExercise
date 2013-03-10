@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>简单网页计算器</title>
+	<script>
+		window.onload = function() {
+			var aNum1 = [];
+			var aNum2 = [];
+			var sCj = '';
+			var oNum = document.getElementById('btnum').getElementsByTagName('button');
+			var oCz = document.getElementById('btcz').getElementsByTagName('button');
+			var oDeng = document.getElementById('deng');
+			var oJg = document.getElementById('jg');
+			for (var i = 0; i < oNum.length; i++) {
+				oNum[i].index = i;
+				oNum[i].onclick = function() {
+					if (sCj.length > 0) {
+						aNum2.push(this.index);
+						show(aNum2);
+					}
+					else {
+						aNum1.push(this.index);
+						show(aNum1);
+					}
+				};
+			}
+			for (var i = 0; i < oCz.length; i++) {
+				oCz[i].index = i;
+				oCz[i].onclick = function () {
+					if (sCj.length > 0) {
+						alert('只能做两个数字的计算，请直接按等号！！！')
+					}
+					else {
+						switch (this.index){
+							case 0:
+								sCj = '+';
+								oJg.value = '+';
+								break;
+							case 1:
+								sCj = '-';
+								oJg.value = '-';
+								break;
+							case 2:
+								sCj = '*';
+								oJg.value = '*';
+								break;
+							case 3:
+								sCj = '/';
+								oJg.value = '/';
+								break;
+						}
+					}
+				};
+			}
+			oDeng.onclick = function() {
+				console.log([aNum1,aNum2,sCj]);
+				switch (sCj){
+					case '+':
+						oJg.value = parseInt(aNum1.join(''), 10) + parseInt(aNum2.join(''), 10);
+						break;
+					case '-':
+						oJg.value = parseInt(aNum1.join(''), 10) + (- parseInt(aNum2.join(''), 10));
+						break;
+					case '*':
+						oJg.value = parseInt(aNum1.join(''), 10) * parseInt(aNum2.join(''), 10);
+						break;
+					case '/':
+						oJg.value = (parseInt(aNum1.join(''), 10)) / (parseInt(aNum2.join(''), 10));
+						break;
+				}
+			};
+			function show(n) {
+				oJg.value = n.join('');
+			}
+		};
+	</script>
+</head>
+<body>
+<div id="btnum">
+	<button type="button">0</button>
+	<button type="button">1</button>
+	<button type="button">2</button>
+	<button type="button">3</button>
+	<button type="button">4</button>
+	<button type="button">5</button>
+	<button type="button">6</button>
+	<button type="button">7</button>
+	<button type="button">8</button>
+	<button type="button">9</button>
+</div>
+<div id="btcz">
+	<button type="button">+</button>
+	<button type="button">-</button>
+	<button type="button">*</button>
+	<button type="button">/</button>
+</div>
+<button type="button" id="deng">=</button>
+<input type="text" id="jg">
+</body>
+</html>
