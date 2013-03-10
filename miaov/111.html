@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>基础</title>
+	<script>
+		window.onload = function() {
+			var num = 12;
+			var str = 'abc';
+			var doc = document;
+			console.log(typeof(num));
+			console.log(typeof(str));
+			console.log(typeof(doc));
+
+			var num1 = document.getElementById('ipn1');
+			var num2 = document.getElementById('ipn2');
+			var russell = document.getElementById('ipn3');
+			russell.onclick = function() {
+				var v1 = parseInt(num1.value, 10);
+				var v2 = parseInt(num2.value, 10);
+				russell.value = v1 + v2;
+				if(russell.value < 10 && russell.value > 0) {
+					russell.value = '0' + russell.value;
+				}
+				if(isNaN(russell.value)) {
+					russell.value = '请输入数字！';
+				}
+			};
+			var dali = document.getElementById('ipn4');
+			dali.onclick = function() {
+				var v1 = parseInt(num1.value, 10);
+				var v2 = parseInt(num2.value, 10);
+				if (v1 >= v2) {
+					dali.value = v1;
+				}
+				else{
+					dali.value = v2;
+				}
+				if(dali.value < 10 && dali.value > 0) {
+					dali.value = '0' + dali.value;
+				}
+				if(isNaN(dali.value)) {
+					dali.value = '请输入数字！';
+				}
+			};
+
+			var btn1 = document.getElementById('btn1');
+			var band = 0;
+			btn1.onclick = function() {
+				this.value = '点我' + ' +' + band;
+				band += 1;
+			};
+		};
+	</script>
+</head>
+<body>
+<input type="number" id="ipn1"> + <input type="number" id="ipn2"> = <input type="text" id="ipn3" value="点我知结果"><input type="text" id="ipn4" value="点我比大小"><br>
+<input type="button" value="点我！" id="btn1">
+</body>
+</html>
