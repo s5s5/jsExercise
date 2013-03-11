@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>基础</title>
+	<script>
+		window.onload = function() {
+			console.log(parseInt('11', 2));
+			console.log(parseFloat('51.65'));
+			var a = 100;
+			function test() {
+				console.log(a);
+				var h = a * 2;
+				var a = 200;
+				console.log(a);
+				var l = a / 2;
+				console.log([h,l]);
+			}
+			test();
+			var oUl = document.getElementById('ul1');
+			var aLi = oUl.getElementsByTagName('li');
+			var i = 0;
+			for (i = 0; i < aLi.length; i++) {
+				if (i % 2 !== 0) {
+					aLi[i].style.backgroundColor = '#ccc';
+				}
+				aLi[i].onclick = function() {
+					css(this, 'background', 'red');
+				}
+			}
+			var n = 5 + 60 * 60 * 24;
+			console.log(parseInt((((n / 60) / 60) / 24), 10) + '天' + parseInt((n / (60 * 60)) % 24) + '时' + parseInt((n % (60 * 60)) / 60) + '分' + n % 60 + '秒');
+			var i = 0;
+			for (i = 0; i < 5; i++) {
+				if (i === 3) {
+					continue;
+				}
+				console.log('continue' + i);
+			}
+			var obj = {a:5, b:3, c:{a:5, b:3, c:{a:5, b:3, c:{a:5, b:3}}}};
+			var attr = '';
+			for (attr in obj) {
+				console.log(attr + '=' + obj[attr]);
+			}
+			function sum() {
+				var result = 0;
+				var i = 0;
+
+				for (i = 0; i < arguments.length; i++) {
+					result += arguments[i];
+				}
+
+				console.log(result);
+			}
+			sum(1,5,1,5,51,5,5,0,16,6,1,999,84,9,1,115,5,1,651,0.5);
+			function getStyle(obj1, attr1) {
+				if (obj1.currentStyle) {
+					return obj1.currentStyle[attr1];
+				} else {
+					return getComputedStyle(obj1, null)[attr1];
+				}
+			}
+			console.log(getStyle(oUl, 'height'));
+			function css(obj, attr, value) {
+				if (arguments.length == 2) {
+					return getStyle(obj, attr);
+				} else if (arguments.length == 3) {
+					obj.style[attr] = value;
+				}
+			}
+			var arr = [489,15641,668,9689,0,-1,-560];
+			console.log(arr);
+			arr.sort(function(num1, num2) {
+				return num2 - num1;
+			});
+			console.log(arr);
+			arr.splice(0,1);
+			console.log(arr);
+			arr.splice(1,0,'a','c','b');
+			console.log(arr);
+			arr.splice(3,4,'f','g');
+			console.log(arr);
+		};
+	</script>
+</head>
+<body>
+<ul id="ul1">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+</body>
+</html>
