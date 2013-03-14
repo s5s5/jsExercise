@@ -21,6 +21,45 @@
 					this.parentNode.style.display = 'none';
 				}
 			}
+//			IE
+//			oUl.firstChild.style.background = 'yellow';
+//			FF
+//			oUl.firstElementChild.style.background = 'yellow';
+			var oFirst = oUl.firstElementChild || oUl.firstChild;
+			oFirst.style.background = 'yellow';
+			var oLi = document.getElementById('li1');
+			var n = oLi.previousSibling;
+			while (n.nodeType !== 1) {
+				console.log(n);
+				n = n.previousSibling;
+				console.log(n);
+			}
+			n.style.background = 'blue';
+
+			var oTxt = document.getElementById('txt1');
+			console.log(oTxt.getAttribute('id'));
+			oTxt.value = '123';
+			oTxt['value'] = 'abc';
+			oTxt.setAttribute('value', 'shit');
+			console.log(oTxt.value);
+			console.log(oTxt['value']);
+			console.log(oTxt.getAttribute('value'));
+			console.log(oTxt['value']);
+
+			function getByClass(oParent, sClass) {
+				var aEle = oParent.getElementsByTagName('*');
+				var aResult = [];
+				for (i = 0; i < aEle.length; i++) {
+					if (aEle[i].className == sClass) {
+						aResult.push(aEle[i]);
+					}
+				}
+				return aResult;
+			}
+			var aBox = getByClass(oUl, 'box');
+			for (i = 0; i < aBox.length; i++) {
+				aBox[i].style.background = 'gray';
+			}
 		};
 	</script>
 </head>
@@ -32,6 +71,13 @@
 	<li><a href="#">hidden</a></li>
 	<li><a href="#">hidden</a></li>
 	<li onclick="console.log(this.offsetParent.tagName);"><a href="#">hidden</a></li>
+	<li></li>
+	<li></li>
+	<li id="li1"></li>
+	<li class="box"></li>
+	<li></li>
+	<li class="box"></li>
 </ul>
+<input type="text" id="txt1">
 </body>
 </html>
