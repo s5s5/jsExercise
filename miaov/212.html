@@ -6,6 +6,8 @@
 	<script>
 		window.onload = function() {
 			var oBtn = document.getElementById('btn1');
+			var oBtn2 = document.getElementById('btn2');
+			var oBtn3 = document.getElementById('btn3');
 			var oTxt = document.getElementById('txt1');
 			var oUl = document.getElementById('ul1');
 			oBtn.onclick = function() {
@@ -13,16 +15,30 @@
 				oLi.innerHTML = oTxt.value;
 				oUl.appendChild(oLi);
 			};
+			oBtn2.onclick = function() {
+				var oLi = document.createElement('li');
+				var aLi = oUl.getElementsByTagName('li');
+				oLi.innerHTML = oTxt.value;
+				if (aLi.length === 0) {
+					oUl.appendChild(oLi);
+				} else {
+					oUl.insertBefore(oLi, aLi[0]);
+				}
+			};
+			oBtn3.onclick = function() {
+				var aLi = oUl.getElementsByTagName('li');
+				oUl.removeChild(aLi[0]);
+			};
 		};
 
 	</script>
 </head>
 <body>
+<button type="button" id="btn2">创建LI</button>
 <input type="text" id="txt1">
 <button type="button" id="btn1">创建LI</button>
-<ul id="ul1">
-	<li>aaa</li>
-</ul>
+<button type="button" id="btn3">删除LI</button>
+<ul id="ul1"></ul>
 <script>document.write(new Date().getFullYear());</script>
 </body>
 </html>
