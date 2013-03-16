@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>BOM</title>
+	<style>
+		.fixd{position:absolute; top:300px; right:10px; width:100px; height:100px; background-color:#7fff00;}
+	</style>
+	<script>
+		window.onload = function() {
+			var oBtn = document.getElementById('btn1');
+			oBtn.onclick = function() {
+				document.write('8.20')
+			};
+
+			var oTxt = document.getElementById('txt1');
+			var oBtn2 = document.getElementById('btn2');
+			oBtn2.onclick = function() {
+				var oNewWin = window.open('about:blank');
+				oNewWin.document.write(oTxt.value);
+			};
+
+			var oBtn3 = document.getElementById('btn3');
+			oBtn3.onclick = function() {
+				window.close();
+			};
+
+			var oBtn4 = document.getElementById('btn4');
+			oBtn4.onclick = function() {
+				window.open('http://s5s5.me', 'new');
+			};
+
+			console.log(window.navigator.userAgent);
+			console.log(window.location);
+
+//			var str = prompt('do you like js?', 'yes');
+//			console.log(str);
+
+			var oDiv = document.getElementById('div1');
+			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			var t = (document.documentElement.clientHeight - oDiv.offsetHeight) / 2;
+			oDiv.style.top = scrollTop + t + .035 + 'px';
+		};
+	</script>
+</head>
+<body style="height:2000px;">
+<button type="button" id="btn1">write</button><br>
+<textarea id="txt1"></textarea><button type="button" id="btn2">run</button><br>
+<button type="button" id="btn3">close</button><br>
+<button type="button" id="btn4">open</button>
+<div id="div1" class="fixd"></div>
+<script src="221.js"></script>
+</body>
+</html>
