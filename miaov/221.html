@@ -6,6 +6,7 @@
 	<style>
 		.fixd{position:absolute; top:300px; right:10px; width:100px; height:100px; background-color:#7fff00;}
 	</style>
+	<script src="221.js"></script>
 	<script>
 		window.onload = function() {
 			var oBtn = document.getElementById('btn1');
@@ -36,10 +37,35 @@
 //			var str = prompt('do you like js?', 'yes');
 //			console.log(str);
 
+			var oBtn5 = document.getElementById('btn5');
+			var bSys = true;
+			var timer = null;
+
+			//如何检测用户拖动了滚动条
+			window.onscroll = function() {
+				if (!bSys) {
+					clearInterval(timer);
+				}
+				bSys = false;
+			};
+			oBtn5.onclick = function() {
+				timer = setInterval(function() {
+					var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+					var iSpeed = Math.floor(- scrollTop / 8);
+					if (scrollTop === 0) {
+						clearInterval(timer);
+					}
+					bSys = true;
+					document.documentElement.scrollTop = document.body.scrollTop = scrollTop + iSpeed;
+				}, 30);
+			};
+		};
+		window.onresize = window.onscroll = function() {
 			var oDiv = document.getElementById('div1');
 			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 			var t = (document.documentElement.clientHeight - oDiv.offsetHeight) / 2;
-			oDiv.style.top = scrollTop + t + .035 + 'px';
+//			oDiv.style.top = scrollTop + t + .035 + 'px';
+			startMove(oDiv, {top: scrollTop + t});
 		};
 	</script>
 </head>
@@ -49,6 +75,6 @@
 <button type="button" id="btn3">close</button><br>
 <button type="button" id="btn4">open</button>
 <div id="div1" class="fixd"></div>
-<script src="221.js"></script>
+<button type="button" id="btn5" style="bottom:10px; right:10px; position:fixed;">TOP</button>
 </body>
 </html>
