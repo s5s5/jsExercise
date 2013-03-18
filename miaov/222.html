@@ -7,36 +7,29 @@
 		.fixd{position:absolute; top:300px; right:10px; width:100px; height:100px; background-color:#7fff00;}
 	</style>
 	<script>
+		function sMove(oTop, oDiv) {
+			timer = setInterval(function() {
+				var iSpeed = Math.ceil((oTop - oDiv.offsetTop)  / 8);
+				console.log('iSpeed:' + iSpeed);
+				oDiv.style.top = oDiv.offsetTop + iSpeed + 'px';
+				console.log(oDiv.style.top);
+			}, 30);
+		}
 		window.onload = window.onresize = window.onscroll = function() {
 			var oDiv = document.getElementById('div1');
 			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 			var clientTop = document.documentElement.clientHeight || document.body.clientHeight;
-			var oTop = scrollTop + (clientTop / 2);
+			var oTop = Math.ceil(scrollTop + (clientTop / 2));
 			var timer = null;
-//			var bStope = true;
-			var aSpeed = [];
+			var aTop = [];
+			aTop.push(oTop);
 //			console.log(clientTop);
-//			oDiv.style.top = scrollTop + (clientTop / 2) + 'px';
-			function sMove() {
-//				bStope = false;
+			oDiv.style.top = scrollTop + (clientTop / 2) + 'px';
 
-				timer = setInterval(function() {
-					var iSpeed = Math.ceil((oTop - oDiv.offsetTop)  / 8);
-					aSpeed.push(iSpeed);
-					console.log('iSpeed:' + iSpeed + 'aS:' + aSpeed);
-					oDiv.style.top = oDiv.offsetTop + iSpeed + 'px';
-					console.log(oDiv.style.top);
-				}, 100);
-			}
-			sMove();
-//			if (aSpeed[0] > 0 && aSpeed[aSpeed.length] <=0) {
-				clearInterval(timer);
-//						bStope = true;
-//			}
-			else if (aSpeed[0] < 0 && aSpeed[aSpeed.length] >=0) {
-				clearInterval(timer);
-//						bStope = true;
-			}
+//			oDiv.onclick = function() {
+//				sMove(oTop, oDiv);
+//			};
+//			console.log(aTop);
 		};
 	</script>
 </head>
