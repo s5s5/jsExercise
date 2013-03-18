@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>gif2css3</title>
+	<style type="text/css" media="screen">
+
+		body{
+			color:#222;
+			font:75% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+			margin:0 auto;
+			width:750px;
+		}
+
+		h2{
+			background-color:#ccc;
+		}
+
+		pre{
+			background-color:#eee;
+			border:1px solid #ccc;
+			padding:10px;
+			font-size:110%;
+			width:40em;
+		}
+
+		pre.diagram{
+			background-color:#FAFAD2;
+		}
+
+		.question{
+			color:#666;
+			font-style:italic;
+			font-size:110%;
+		}
+
+		h1{
+			background:transparent url(http://ernestdelgado.com/img/lab.png) no-repeat scroll 27px 4px;
+			border:1px dashed #ccc;
+			padding:40px 32px 32px 118px;
+			margin-top:0px;
+			border-top:none;
+			position:relative;
+			text-transform:uppercase;
+		}
+
+		em{
+			font-weight:bold;
+			color:#000;
+			font-style:normal;
+		}
+
+		img{
+			border:3px solid yellow;
+		}
+
+		canvas{
+			border:3px solid red;
+		}
+
+		.ex-group{
+			border-bottom:1px solid #ccc;
+			padding-bottom:15px;
+		}
+	</style>
+	<script src="gif2css3.js"></script>
+</head>
+<body id="" onload="">
+<div>
+	<input type="file" multiple="true" accept="image/*" onChange="selectFile(this);" id="fl"> 合并后最大宽度：<input type="number" id="maxWidth" value="500">
+	<button onclick="preview()">预览</button>
+	<button onclick="merger()">合并</button>
+</div>
+<div id="mergerImg"></div>
+<div id="images"></div>
+
+<pre>
+http://emer.emlog.net/url/index/id/24778.html
+http://ernestdelgado.com/public-tests/gifoncanvas/
+-webkit-animation:gangham 40s steps(23, start) infinite;
+</pre>
+
+<h1>Animated Gif on Canvas</h1>
+
+<p>
+	Published date: Aug 19, 2009
+</p>
+
+<div class="ex-group">
+	<p>
+		The canvas tag allows you to reference an image element in the DOM and render it inside the canvas through the drawImage method. That image source can also be an Image object created with Javascript.
+	</p>
+	<img id="ex-static-simple-png" src="mr.png"/>
+	<canvas id="ex-static-simple-cv"></canvas>
+</div>
+
+<div class="ex-group">
+	<p>
+		Instead of an image, we can use another existing canvas as the source of the drawImage method. The third square is a canvas that loads from another canvas (2nd square) which in turn loads from an image.
+	</p>
+	<img id="ex-static-double-png" src="mr.png"/>
+	<canvas id="ex-static-double-cv-buffer"></canvas>
+	<canvas id="ex-static-double-cv"></canvas>
+</div>
+
+<div class="ex-group">
+	<p>
+		If we set a render interval to both canvas then anything that happens on the second one affects also the third one. The first canvas only takes care of the horizontal movement whereas the second one takes care of the vertical one. Both combined create the bouncing effect advancing to the right.
+	</p>
+	<img id="ex-static-interval-png" src="static_ball.png"/>
+	<canvas id="ex-static-interval-cv-buffer"></canvas>
+	<canvas id="ex-static-interval-cv"></canvas>
+</div>
+
+<div class="ex-group">
+	<p>
+		However, if we add an animated GIF as the first source,
+		<em>every time a drawImage call happens it will render whatever the status of the GIF is at that very second</em>. This way, we can add an extra animation to the final results with the same steps (as if we were importing an animation). Likewise, we can get the same results as the previous sample with one less step. Again, the first canvas is taking care of the horizontal movement whereas the second one adds some random movement to it.
+	</p>
+	<img id="ex-animated-interval-gif" src="bouncing_ball.gif"/>
+	<canvas id="ex-animated-interval-cv-buffer"></canvas>
+	<canvas id="ex-animated-interval-cv"></canvas>
+</div>
+
+<div class="ex-group">
+<p>
+	We can also create an image sprite through the cycle loading time of the GIF. However, it's kind of difficult to match the right timing pattern of the image animation.
+</p>
+
+<div class="ex-group">
+	<img id="ex-animated-sprite-gif" src="iori.gif"/>
+	<canvas id="ex-animated-sprite-cv"></canvas>
+</div>
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+	var Page = {};
+	(function () {
+		var log = function (msg) {
+			if (window.console) {
+				console.log(msg);
+			}
+			else {
+
+			}
+		}
+
+		var IMG_DEFAULT_W = 50,
+				IMG_DEFAULT_H = 50,
+				CV_DEFAULT_W = 50,
+				CV_DEFAULT_H = 50;
+
+		Page.funcs = {
+			renderInCanvas: function (srcEl, canvasEl, cfgObj, clearCtx) {
+				// log('renderInCanvas');
+				var cv = this.getById(canvasEl);
+				var ctx = cv.getContext('2d');
+				if (clearCtx) {
+					ctx.clearRect(0, 0, cv.width, cv.height);
+				}
+				var sizeArgs = [this.getById(srcEl)];
+				var drawConfig = this._setDrawImageConf(srcEl, cfgObj);
+				for (var i in drawConfig) {
+					if (drawConfig.hasOwnProperty(i)) {
+						sizeArgs.push(drawConfig[i]);
+					}
+				}
+				ctx.drawImage.apply(ctx, sizeArgs);
+			},
+
+			clearCanvas: function (canvasEl) {
+				var cv = this.getById(canvasEl);
+				cv.getContext('2d').clearRect(0, 0, cv.width, cv.height);
+			},
+
+			getById: function (el) {
+				if (el['nodeType'] || el.item) { // Node, or NodeList
+					return el;
+				}
+				if (typeof el === 'string') { // id
+					return document.getElementById(el);
+				}
+			},
+
+			setDefaultImagesSize: function () {
+				var imgs = document.body.getElementsByTagName('img');
+				for (var i = 0, len = imgs.length; i < len; i++) {
+					this._setImageSize(imgs[i], IMG_DEFAULT_W, IMG_DEFAULT_H);
+				}
+			},
+
+			setCanvasSize: function (canvasEl, width, height) {
+				var w = width || CV_DEFAULT_W;
+				var h = height || CV_DEFAULT_H;
+				if (typeof canvasEl === 'object' && 'length' in canvasEl) {
+					for (var i = 0, len = canvasEl.length; i < len; i++) {
+						this._setCanvasSize(canvasEl[i], w, h);
+					}
+				}
+				else {
+					this._setCanvasSize(canvasEl, w, h);
+				}
+			},
+
+			_setCanvasSize: function (canvasEl, width, height) {
+				var cv;
+				if (typeof canvasEl === 'string') {
+					cv = this.getById(canvasEl)
+				}
+				else {
+					cv = canvasEl;
+				}
+				cv.width = width;
+				cv.height = height;
+				cv.style.width = width + 'px';
+				cv.style.height = height + 'px';
+			},
+
+			_setImageSize: function (imgEl, width, height) {
+				var img = this.getById(imgEl);
+				img.style.width = width + 'px';
+				img.style.height = height + 'px';
+			},
+
+			_setDrawImageConf: function (srcEl, cfgObj) {
+				//! naturalWidth, naturalHeight will fail in IE
+				// and opera but both also fail on rendering animated
+				// gifs in canvas so it doesn't matter for now
+				var el = this.getById(srcEl);
+				var cfg = {
+					sx: 0,
+					sy: 0,
+					sw: el.naturalWidth || CV_DEFAULT_W,
+					sh: el.naturalHeight || CV_DEFAULT_H,
+					dx: 0,
+					dy: 0,
+					dw: el.naturalWidth || CV_DEFAULT_W,
+					dh: el.naturalHeight || CV_DEFAULT_H
+				}
+				if (cfgObj !== null) {
+					for (var i in cfgObj) {
+						cfg[i] = cfgObj[i];
+					}
+				}
+				return cfg;
+			}
+		}
+	})()
+
+	window.onload = (function () {
+		var S_SIMPLE_IMG_ID = 'ex-static-simple-png',
+				S_SIMPLE_CV_ID = 'ex-static-simple-cv',
+				S_DOUBLE_IMG_ID = 'ex-static-double-png',
+				S_DOUBLE_BUFFER_ID = 'ex-static-double-cv-buffer',
+				S_DOUBLE_CV_ID = 'ex-static-double-cv',
+				S_INTERVAL_IMG_ID = 'ex-static-interval-png',
+				S_INTERVAL_BUFFER_ID = 'ex-static-interval-cv-buffer',
+				S_INTERVAL_CV_ID = 'ex-static-interval-cv',
+				A_INTERVAL_IMG_ID = 'ex-animated-interval-gif',
+				A_INTERVAL_BUFFER_ID = 'ex-animated-interval-cv-buffer',
+				A_INTERVAL_CV_ID = 'ex-animated-interval-cv',
+				A_SPRITE_IMG_ID = 'ex-animated-sprite-gif',
+				A_SPRITE_CV_ID = 'ex-animated-sprite-cv',
+
+				BOUNCE_SPEED = 1.3,
+				BOUNCE_HEIGHT = 5,
+				PAUSE_TIME = 1500;
+
+
+		var PF = Page.funcs;
+		PF.setDefaultImagesSize();
+		PF.setCanvasSize([S_SIMPLE_CV_ID, S_DOUBLE_BUFFER_ID, S_DOUBLE_CV_ID,
+			S_INTERVAL_BUFFER_ID, S_INTERVAL_CV_ID,
+			A_INTERVAL_BUFFER_ID, A_INTERVAL_CV_ID])
+
+		PF.renderInCanvas(S_SIMPLE_IMG_ID, S_SIMPLE_CV_ID, {dw: 50, dh: 50}, true)
+
+		PF.renderInCanvas(S_DOUBLE_IMG_ID, S_DOUBLE_BUFFER_ID, {dw: 50, dh: 50}, true)
+		PF.renderInCanvas(S_DOUBLE_BUFFER_ID, S_DOUBLE_CV_ID, null, true)
+
+
+		function Interval(fn, delay) {
+			this.interval = null;
+			this.incr1 = 0;
+			this.incr2 = 0;
+			var self = this;
+			this.start = function () {
+				self.interval = setInterval(function () {
+					fn.call(self)
+				}, delay)
+			};
+			this.end = function () {
+				clearInterval(self.interval);
+			}
+		}
+
+		var a = new Interval(function () {
+			PF.renderInCanvas(S_INTERVAL_IMG_ID, S_INTERVAL_BUFFER_ID, {dx: this.incr1++ % 50 - 20}, true)
+			var bounceValue = Math.sin((Math.PI * Math.PI * this.incr2) / BOUNCE_SPEED) * BOUNCE_HEIGHT - BOUNCE_HEIGHT;
+			PF.renderInCanvas(S_INTERVAL_BUFFER_ID, S_INTERVAL_CV_ID, {dy: bounceValue}, true)
+			this.incr2 += .1;
+			if (this.incr1 % 50 == 0) {
+				this.end();
+				setTimeout(this.start, PAUSE_TIME);
+			}
+		}, 150);
+		a.start();
+
+
+		var b = new Interval(function () {
+			PF.renderInCanvas(A_INTERVAL_IMG_ID, A_INTERVAL_BUFFER_ID, {dx: this.incr1++ % 50 - 20, dw: 50, dh: 50}, true);
+			// add some horizontal movement
+			var hMoveValue = Math.sin((Math.PI * Math.PI * this.incr2) / 1.3) * 5 - 5;
+			PF.renderInCanvas(A_INTERVAL_BUFFER_ID, A_INTERVAL_CV_ID, {dx: hMoveValue}, true)
+			this.incr2 += .1;
+			if (this.incr1 % 50 == 0) {
+				this.end();
+				setTimeout(this.start, PAUSE_TIME);
+			}
+		}, 150);
+		b.start();
+
+		PF.setCanvasSize(A_SPRITE_CV_ID, 600, 50);
+		var c = new Interval(function () {
+			if (this.incr1 % 600 == 550) {
+				this.end();
+				var self = this;
+				setTimeout(function () {
+					PF.clearCanvas(A_SPRITE_CV_ID)
+					self.start();
+				}, 2000);
+			}
+			PF.renderInCanvas(A_SPRITE_IMG_ID, A_SPRITE_CV_ID, {dx: this.incr1 % 600, dw: 50, dh: 50})
+			this.incr1 += 50;
+		}, 150);
+		c.start();
+
+
+	});
+</script>
+</body>
+</html>
