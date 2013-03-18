@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>BOM</title>
+	<style>
+		.fixd{position:absolute; top:300px; right:10px; width:100px; height:100px; background-color:#7fff00;}
+	</style>
+	<script>
+		window.onload = window.onresize = window.onscroll = function() {
+			var oDiv = document.getElementById('div1');
+			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			var clientTop = document.documentElement.clientHeight || document.body.clientHeight;
+			var oTop = scrollTop + (clientTop / 2);
+			var timer = null;
+//			var bStope = true;
+			var aSpeed = [];
+//			console.log(clientTop);
+//			oDiv.style.top = scrollTop + (clientTop / 2) + 'px';
+			function sMove() {
+//				bStope = false;
+
+				timer = setInterval(function() {
+					var iSpeed = Math.ceil((oTop - oDiv.offsetTop)  / 8);
+					aSpeed.push(iSpeed);
+					console.log('iSpeed:' + iSpeed + 'aS:' + aSpeed);
+					oDiv.style.top = oDiv.offsetTop + iSpeed + 'px';
+					console.log(oDiv.style.top);
+				}, 100);
+			}
+			sMove();
+//			if (aSpeed[0] > 0 && aSpeed[aSpeed.length] <=0) {
+				clearInterval(timer);
+//						bStope = true;
+//			}
+			else if (aSpeed[0] < 0 && aSpeed[aSpeed.length] >=0) {
+				clearInterval(timer);
+//						bStope = true;
+			}
+		};
+	</script>
+</head>
+<body style="height:2000px;">
+<div class="fixd" id="div1"></div>
+</body>
+</html>
