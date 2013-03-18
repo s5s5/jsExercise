@@ -80,53 +80,6 @@ http://ernestdelgado.com/public-tests/gifoncanvas/
 -webkit-animation:gangham 40s steps(23, start) infinite;
 </pre>
 
-<h1>Animated Gif on Canvas</h1>
-
-<p>
-	Published date: Aug 19, 2009
-</p>
-
-<div class="ex-group">
-	<p>
-		The canvas tag allows you to reference an image element in the DOM and render it inside the canvas through the drawImage method. That image source can also be an Image object created with Javascript.
-	</p>
-	<img id="ex-static-simple-png" src="mr.png"/>
-	<canvas id="ex-static-simple-cv"></canvas>
-</div>
-
-<div class="ex-group">
-	<p>
-		Instead of an image, we can use another existing canvas as the source of the drawImage method. The third square is a canvas that loads from another canvas (2nd square) which in turn loads from an image.
-	</p>
-	<img id="ex-static-double-png" src="mr.png"/>
-	<canvas id="ex-static-double-cv-buffer"></canvas>
-	<canvas id="ex-static-double-cv"></canvas>
-</div>
-
-<div class="ex-group">
-	<p>
-		If we set a render interval to both canvas then anything that happens on the second one affects also the third one. The first canvas only takes care of the horizontal movement whereas the second one takes care of the vertical one. Both combined create the bouncing effect advancing to the right.
-	</p>
-	<img id="ex-static-interval-png" src="static_ball.png"/>
-	<canvas id="ex-static-interval-cv-buffer"></canvas>
-	<canvas id="ex-static-interval-cv"></canvas>
-</div>
-
-<div class="ex-group">
-	<p>
-		However, if we add an animated GIF as the first source,
-		<em>every time a drawImage call happens it will render whatever the status of the GIF is at that very second</em>. This way, we can add an extra animation to the final results with the same steps (as if we were importing an animation). Likewise, we can get the same results as the previous sample with one less step. Again, the first canvas is taking care of the horizontal movement whereas the second one adds some random movement to it.
-	</p>
-	<img id="ex-animated-interval-gif" src="bouncing_ball.gif"/>
-	<canvas id="ex-animated-interval-cv-buffer"></canvas>
-	<canvas id="ex-animated-interval-cv"></canvas>
-</div>
-
-<div class="ex-group">
-<p>
-	We can also create an image sprite through the cycle loading time of the GIF. However, it's kind of difficult to match the right timing pattern of the image animation.
-</p>
-
 <div class="ex-group">
 	<img id="ex-animated-sprite-gif" src="iori.gif"/>
 	<canvas id="ex-animated-sprite-cv"></canvas>
@@ -250,18 +203,18 @@ http://ernestdelgado.com/public-tests/gifoncanvas/
 	})()
 
 	window.onload = (function () {
-		var S_SIMPLE_IMG_ID = 'ex-static-simple-png',
-				S_SIMPLE_CV_ID = 'ex-static-simple-cv',
-				S_DOUBLE_IMG_ID = 'ex-static-double-png',
-				S_DOUBLE_BUFFER_ID = 'ex-static-double-cv-buffer',
-				S_DOUBLE_CV_ID = 'ex-static-double-cv',
-				S_INTERVAL_IMG_ID = 'ex-static-interval-png',
-				S_INTERVAL_BUFFER_ID = 'ex-static-interval-cv-buffer',
-				S_INTERVAL_CV_ID = 'ex-static-interval-cv',
-				A_INTERVAL_IMG_ID = 'ex-animated-interval-gif',
-				A_INTERVAL_BUFFER_ID = 'ex-animated-interval-cv-buffer',
-				A_INTERVAL_CV_ID = 'ex-animated-interval-cv',
-				A_SPRITE_IMG_ID = 'ex-animated-sprite-gif',
+//		var S_SIMPLE_IMG_ID = 'ex-static-simple-png',
+//		var S_SIMPLE_CV_ID = 'ex-static-simple-cv',
+//				S_DOUBLE_IMG_ID = 'ex-static-double-png',
+//				S_DOUBLE_BUFFER_ID = 'ex-static-double-cv-buffer',
+//				S_DOUBLE_CV_ID = 'ex-static-double-cv',
+//				S_INTERVAL_IMG_ID = 'ex-static-interval-png',
+//				S_INTERVAL_BUFFER_ID = 'ex-static-interval-cv-buffer',
+//				S_INTERVAL_CV_ID = 'ex-static-interval-cv',
+//				A_INTERVAL_IMG_ID = 'ex-animated-interval-gif',
+//				A_INTERVAL_BUFFER_ID = 'ex-animated-interval-cv-buffer',
+//				A_INTERVAL_CV_ID = 'ex-animated-interval-cv',
+			var A_SPRITE_IMG_ID = 'ex-animated-sprite-gif',
 				A_SPRITE_CV_ID = 'ex-animated-sprite-cv',
 
 				BOUNCE_SPEED = 1.3,
@@ -271,14 +224,12 @@ http://ernestdelgado.com/public-tests/gifoncanvas/
 
 		var PF = Page.funcs;
 		PF.setDefaultImagesSize();
-		PF.setCanvasSize([S_SIMPLE_CV_ID, S_DOUBLE_BUFFER_ID, S_DOUBLE_CV_ID,
-			S_INTERVAL_BUFFER_ID, S_INTERVAL_CV_ID,
-			A_INTERVAL_BUFFER_ID, A_INTERVAL_CV_ID])
+//		PF.setCanvasSize([])
 
-		PF.renderInCanvas(S_SIMPLE_IMG_ID, S_SIMPLE_CV_ID, {dw: 50, dh: 50}, true)
-
-		PF.renderInCanvas(S_DOUBLE_IMG_ID, S_DOUBLE_BUFFER_ID, {dw: 50, dh: 50}, true)
-		PF.renderInCanvas(S_DOUBLE_BUFFER_ID, S_DOUBLE_CV_ID, null, true)
+//		PF.renderInCanvas(S_SIMPLE_IMG_ID, S_SIMPLE_CV_ID, {dw: 50, dh: 50}, true)
+//
+//		PF.renderInCanvas(S_DOUBLE_IMG_ID, S_DOUBLE_BUFFER_ID, {dw: 50, dh: 50}, true)
+//		PF.renderInCanvas(S_DOUBLE_BUFFER_ID, S_DOUBLE_CV_ID, null, true)
 
 
 		function Interval(fn, delay) {
@@ -296,41 +247,41 @@ http://ernestdelgado.com/public-tests/gifoncanvas/
 			}
 		}
 
-		var a = new Interval(function () {
-			PF.renderInCanvas(S_INTERVAL_IMG_ID, S_INTERVAL_BUFFER_ID, {dx: this.incr1++ % 50 - 20}, true)
-			var bounceValue = Math.sin((Math.PI * Math.PI * this.incr2) / BOUNCE_SPEED) * BOUNCE_HEIGHT - BOUNCE_HEIGHT;
-			PF.renderInCanvas(S_INTERVAL_BUFFER_ID, S_INTERVAL_CV_ID, {dy: bounceValue}, true)
-			this.incr2 += .1;
-			if (this.incr1 % 50 == 0) {
-				this.end();
-				setTimeout(this.start, PAUSE_TIME);
-			}
-		}, 150);
-		a.start();
+//		var a = new Interval(function () {
+//			PF.renderInCanvas(S_INTERVAL_IMG_ID, S_INTERVAL_BUFFER_ID, {dx: this.incr1++ % 50 - 20}, true)
+//			var bounceValue = Math.sin((Math.PI * Math.PI * this.incr2) / BOUNCE_SPEED) * BOUNCE_HEIGHT - BOUNCE_HEIGHT;
+//			PF.renderInCanvas(S_INTERVAL_BUFFER_ID, S_INTERVAL_CV_ID, {dy: bounceValue}, true)
+//			this.incr2 += .1;
+//			if (this.incr1 % 50 == 0) {
+//				this.end();
+//				setTimeout(this.start, PAUSE_TIME);
+//			}
+//		}, 150);
+//		a.start();
 
 
-		var b = new Interval(function () {
-			PF.renderInCanvas(A_INTERVAL_IMG_ID, A_INTERVAL_BUFFER_ID, {dx: this.incr1++ % 50 - 20, dw: 50, dh: 50}, true);
-			// add some horizontal movement
-			var hMoveValue = Math.sin((Math.PI * Math.PI * this.incr2) / 1.3) * 5 - 5;
-			PF.renderInCanvas(A_INTERVAL_BUFFER_ID, A_INTERVAL_CV_ID, {dx: hMoveValue}, true)
-			this.incr2 += .1;
-			if (this.incr1 % 50 == 0) {
-				this.end();
-				setTimeout(this.start, PAUSE_TIME);
-			}
-		}, 150);
-		b.start();
+//		var b = new Interval(function () {
+//			PF.renderInCanvas(A_INTERVAL_IMG_ID, A_INTERVAL_BUFFER_ID, {dx: this.incr1++ % 50 - 20, dw: 50, dh: 50}, true);
+//			// add some horizontal movement
+//			var hMoveValue = Math.sin((Math.PI * Math.PI * this.incr2) / 1.3) * 5 - 5;
+////			PF.renderInCanvas(A_INTERVAL_BUFFER_ID, A_INTERVAL_CV_ID, {dx: hMoveValue}, true)
+//			this.incr2 += .1;
+//			if (this.incr1 % 50 == 0) {
+//				this.end();
+//				setTimeout(this.start, PAUSE_TIME);
+//			}
+//		}, 150);
+//		b.start();
 
 		PF.setCanvasSize(A_SPRITE_CV_ID, 600, 50);
 		var c = new Interval(function () {
 			if (this.incr1 % 600 == 550) {
 				this.end();
 				var self = this;
-				setTimeout(function () {
-					PF.clearCanvas(A_SPRITE_CV_ID)
-					self.start();
-				}, 2000);
+//				setTimeout(function () {
+//					PF.clearCanvas(A_SPRITE_CV_ID)
+//					self.start();
+//				}, 2000);
 			}
 			PF.renderInCanvas(A_SPRITE_IMG_ID, A_SPRITE_CV_ID, {dx: this.incr1 % 600, dw: 50, dh: 50})
 			this.incr1 += 50;
