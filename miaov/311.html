@@ -51,14 +51,16 @@
 //				alert(oEvent.keyCode);
 				if (oEvent.keyCode === 37) {
 					clearInterval(kl);
+					clearInterval(kr);
 					kl = setInterval(function() {
 						oDiv3.style.left = oDiv3.offsetLeft - 10 + 'px';
-						console.log(oDiv3.offsetLeft);
+//						console.log(oDiv3.offsetLeft);
 					}, 30);
 				}
 				else if (oEvent.keyCode === 39) {
 					clearInterval(kl);
-					kl = setInterval(function() {
+					clearInterval(kr);
+					kr = setInterval(function() {
 						oDiv3.style.left = oDiv3.offsetLeft + 10 + 'px';
 					}, 30);
 				}
