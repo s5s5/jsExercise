@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>测试</title>
+	<style>
+		#box{
+			width:100px;
+			height:100px;
+			background-color:#444444;
+			background-image:-webkit-gradient(linear, left top, left bottom, from(#444444), to(#999999));
+			background-image:-webkit-linear-gradient(top, #444444, #999999);
+			background-image:-moz-linear-gradient(top, #444444, #999999);
+			background-image:-o-linear-gradient(top, #444444, #999999);
+			background-image:linear-gradient(to bottom, #444444, #999999);
+		}
+	</style>
+	<script>
+		window.onload = function () {
+			var oBox = document.getElementById('box');
+			setCSS3(oBox, 'transform', 'rotate(90deg) scale(1) skew(10deg) translate(10px)');
+			setCSS3(oBox, 'border-radius', '5px');
+			for (arr in oBox.style) { //演示用，打印属性值
+				console.log(arr + '=' + oBox.style[arr]);
+			}
+		};
+
+		function setCSS3(obj, name, value) { //CSS3 加前缀函数
+			var aPreifx = ['Webkit', 'Moz', 'ms', 'O', ''],
+				aCStyle = name.split('-'),
+				nPreifx = aPreifx.length,
+				nCStyle = aCStyle.length,
+				aJStyle = [],
+				i = 0;
+			for	(i = 0; i < nCStyle; i++) {
+				aJStyle.push(aCStyle[i].charAt(0).toUpperCase() + aCStyle[i].slice(1));
+			}
+			aJStyle = aJStyle.join('');
+			for (i = 0; i < nPreifx - 1; i++) {
+				obj.style[aPreifx[i] + aJStyle] = value;
+			}
+			obj.style[aJStyle.charAt(0).toLowerCase() + aJStyle.slice(1)] = value;
+		}
+	</script>
+</head>
+<body>
+<div id="box"></div>
+<pre>
+
+
+CSS3转换函数，省去把CSS3属性写成JS属性及加各种前缀之苦~ ==!
+
+使用方法如下：
+var oBox = document.getElementById('box');
+setCSS3(oBox, 'transform', 'rotate(90deg) scale(1) skew(10deg) translate(10px)');
+setCSS3(oBox, 'border-radius', '5px');
+</pre>
+</body>
+</html>
