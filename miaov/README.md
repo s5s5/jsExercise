@@ -108,3 +108,12 @@
 7. 用键盘来控制DIV移动实例
    ——思考题：如何消除不卡顿的DIV移动
 8. 提交留言实例——ctrl+回车的提交方式
+
+##事件中级
+1. 什么是事件的默认行为
+2. 上下文菜单：oncontextmenu
+3. 文本框内禁止输入内容实例
+4. 自定义右键菜单实例
+5. 只能输入数字的输入框实例：onkeydown、onkeyup
+6. 拖拽实例：拖拽原理、三个事件、document范围、解决FF的bug
+7. 限制拖拽范围的条件：document.documentElement.clientWidth
