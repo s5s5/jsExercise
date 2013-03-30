@@ -117,3 +117,14 @@
 5. 只能输入数字的输入框实例：onkeydown、onkeyup
 6. 拖拽实例：拖拽原理、三个事件、document范围、解决FF的bug
 7. 限制拖拽范围的条件：document.documentElement.clientWidth
+
+##cookie
+1. 什么是 cookie、cookie 特性
+2. js 中的 cookie：设置 document.cookie
+3. cookie 不会覆盖
+4. cookie 过期时间：expires、setDate
+5. 封装设置 cookie 函数
+6. 封装获取 cookie 函数
+7. 封装删除 cookie 函数
+8. cookie 接合拖拽实例
+9. cookie 记录用户名实例
