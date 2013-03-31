@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ajax基础</title>
+	<script src="ajax.js"></script>
+	<script>
+		window.onload = function() {
+			var oBtn = document.getElementById('btn1');
+			oBtn.onclick = function() {
+				ajax('README.md?t=' + new Date().getTime(), function(str){
+					console.log(str);
+				});
+			};
+		};
+	</script>
+</head>
+<body>
+<button type="button" id="btn1">读取README</button>
+</body>
+</html>
