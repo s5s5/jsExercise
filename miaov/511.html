@@ -3,19 +3,71 @@
 <head>
 	<meta charset="utf-8">
 	<title>Ajax基础</title>
+	<style>
+		#pre1{width:88%; min-height:88px; background-color:#000000; border:#f0f8ff double 10px; color:#7fff00; padding:8px;}
+	</style>
 	<script src="ajax.js"></script>
 	<script>
 		window.onload = function() {
 			var oBtn = document.getElementById('btn1');
+			var oPre = document.getElementById('pre1');
 			oBtn.onclick = function() {
 				ajax('README.md?t=' + new Date().getTime(), function(str){
-					console.log(str);
+					oPre.innerText = str;
 				});
 			};
+			var aBtn = document.getElementById('div1').getElementsByTagName('button');
+			var i = 0;
+			for (i = 0; i < aBtn.length; i++) {
+				aBtn[i].index = i;
+				aBtn[i].onclick = function() {
+					ajax('02' + (this.index + 1) + '.html', function(str) {
+						oPre.innerText = str;
+					});
+				};
+			}
+			var oBtn2 = document.getElementById('btn2');
+			oBtn2.onclick = function() {
+				ajax('data.json', function(str) {
+					var arr = eval('(' + str + ')');
+					oPre.innerText = arr;
+				});
+			}
+			var oUl = document.getElementById('ul1');
+			var aBtn2 = document.getElementById('div3').getElementsByTagName('a');
+			for (i = 0; i < aBtn2.length; i++) {
+				aBtn2[i].index = i;
+				aBtn2[i].onclick = function() {
+					ajax('page' + (this.index + 1) + '.json', function(str) {
+						var aData = eval('(' + str + ')');
+						oUl.innerHTML = '';
+						for (i = 0; i < aData.length; i++) {
+							var oLi = document.createElement('li');
+							oLi.innerHTML = '<strong>' + aData[i].user + '</strong><i>' + aData[i].pass + '</i>';
+							oUl.appendChild(oLi);
+						}
+					});
+				};
+			}
 		};
 	</script>
 </head>
 <body>
 <button type="button" id="btn1">读取README</button>
+<div id="div1">
+	<button type="button">读取021.html</button>
+	<button type="button">读取022.html</button>
+	<button type="button">读取023.html</button>
+</div>
+<div id="div2">
+	<button type="button" id="btn2">读取json</button>
+</div>
+<pre id="pre1"></pre>
+<ul id="ul1"></ul>
+<div id="div3">
+	<a href="###">1</a>
+	<a href="###">2</a>
+	<a href="###">3</a>
+</div>
 </body>
 </html>
