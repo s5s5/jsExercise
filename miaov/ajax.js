@@ -2,7 +2,7 @@ function ajax(url, fnSucc, fnFaild) {
 //1.创建Ajax对象
 	var oAjax = null;
 
-	if (window.XMLHttpRequest) {
+	if (window.XMLHttpRequest) {	//使用window undefind来做兼容
 		oAjax = new XMLHttpRequest();
 	}
 	else {
@@ -10,6 +10,7 @@ function ajax(url, fnSucc, fnFaild) {
 	}
 
 //2.连接服务器
+	//open(方法, url, 是否异步)
 	oAjax.open('GET', url, true);
 
 //3.发送请求

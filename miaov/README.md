@@ -145,3 +145,15 @@
 13. AJAX 分页实例，创建数据
 14. 布局、ajax 读取、生成 li 元素，读取数据，预先清空数据
 15. AJAX 原理、http请求：GET \ POST，两种方式的区别
+
+##Ajax中级
+1. 编写 Ajax 库，AJAX 请求步骤
+2. 创建 ajax 对象：XMLHttpRequest
+3. 在 IE6 下兼容 XMLHttpRequest 的解决方案：ActiveXObject("Microsoft.XMLHTTP")
+4. window属性与变量的关系
+5. 用 window 属性来处理 IE6 的兼容性问题
+6. 连接服务器：oAjax.open()
+7. 同步与异步的区别
+8. 发送请求：oAjax.send()
+9. 接收返回：oAjax.onreadystatechange、readyState 属性、oAjax.status、oAjax.responseText
+10. 封装 AJAX 函数
