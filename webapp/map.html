@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>行进记录</title>
+	<!--<script src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"></script>-->
+	<script src="http://api.map.baidu.com/api?v=2.0&ak=41fbedb86441cdf625085769058871da"></script>
+	<style>
+		body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;background-color:#000000;color:yellow;}
+		.tool{position:fixed; bottom:0; right:0;}
+		.tool button{padding:40px; font-size:22px;}
+		#logging{position:fixed; top:0; left:0; background-color:#fff; color:#000; font-size:22px; display:none;
+			-webkit-animation: show1 1000ms ease both infinite;
+			animation: show1 1000ms ease both infinite;
+		}
+		@-webkit-keyframes show1  {
+			0%{opacity: 0; -webkit-transform: scale(0.9);}
+			100% {opacity: 1; -webkit-transform: scale(1);}
+		}
+		@keyframes show1 {
+			0%{opacity: 0; transform: scale(0.9);}
+			100% {opacity: 1; transform: scale(1);}
+		}
+	</style>
+</head>
+<body>
+<div id="allmap"></div>
+<div class="tool">
+	<button type="button" onclick="logPoints();">开始</button>
+	<button type="button" onclick="showPoint();">停止</button>
+</div>
+<div id="logging">记录中...</div>
+</body>
+</html>
+<script>
+
+var arrPoint = [];
+console.log(arrPoint);
+var map = new BMap.Map("allmap");
+var mapStyle ={style : "dark"}; //设置地图风格为高端黑
+	map.setMapStyle(mapStyle);
+
+var logging = document.getElementById('logging');
+
+
+//var point = new BMap.Point(100,1);
+var point = new BMap.Point(104.072307,30.663449);
+if (arrPoint.length > 0) {
+	point = arrPoint[arrPoint.length-1];
+}
+map.centerAndZoom(point,15);
+
+var geolocation = new BMap.Geolocation();
+function logPoint() { // 记录坐标
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+//			var mk = new BMap.Marker(r.point);
+//			map.addOverlay(mk);
+//			map.panTo(r.point);
+//			arrPoint.push('new BMap.Point(' + r.point.lng + ',' + r.point.lat +')');
+			arrPoint.push(r.point);
+		}
+		else {
+			alert('failed '+this.getStatus());
+//			arrPoint.push('new BMap.Point(100, ' + Math.random() + ')');
+		}
+		console.log(arrPoint);
+		return arrPoint;
+	},{enableHighAccuracy: true});
+	//关于状态码
+	//BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+	//BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+	//BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+	//BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+	//BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+	//BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+	//BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+	//BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+	//BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+}
+function showPoint() { //绘制坐标连线
+	clearInterval(log);
+	logging.style.display = 'none';
+	if (arrPoint.length > 0) {
+		var polyline = new BMap.Polyline(arrPoint, {strokeColor:"yellow", strokeWeight:6, strokeOpacity:0.8});
+		map.addOverlay(polyline);
+		console.log(arrPoint);
+		map.panTo(arrPoint[arrPoint.length-1],18);
+		alert('看看吧！')
+	} else {
+		alert('没有记录到点！')
+	}
+}
+function logPoints() {
+	alert('开始嘛？');
+	log = setInterval(logPoint,5000);
+	logging.style.display = 'block';
+}
+</script>
+
