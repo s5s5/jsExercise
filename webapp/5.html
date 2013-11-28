@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>evif</title>
+    <style>
+        body{background-color:#333; font-size:14px;}
+        .player{overflow:hidden;}
+        .card{float:left; width:100px; padding:10px; text-align:center; border:#fff solid 1px; background-color:#fff; color:#000;}
+    </style>
+</head>
+<body>
+<button type="button">给player1分牌</button>
+<button type="button">给player2分牌</button>
+<button type="button">给player3分牌</button>
+<button type="button">给player4分牌</button>
+<button type="button">收回所有的牌</button>
+<div class="player" id="Player1">
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+</div>
+<div class="player" id="Player2">
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+</div>
+<div class="player" id="Player2">
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+</div>
+<div class="player" id="Player4">
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+    <div class="card">
+        <img src="http://getimg.in/10">
+        <p class="name">名字</p>
+        <p class="name-en">NAME</p>
+        <div class="txt">文字</div>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script>
+    var arrCards = [
+        [
+            ['11', '11录音', 'Record', '事故 传递温暖 歌手 讲故事'],
+            ['12', '12中国', 'aaaa', '事故 传递温暖 歌手 讲故事'],
+            ['13', '13世界', 'bbb', '事故 传递温暖 歌手 讲故事'],
+            ['14', '14飞', 'ccc', '事故 传递温暖 歌手 讲故事'],
+            ['15', '15魂牵梦萦', '44', '事故 传递温暖 歌手 讲故事'],
+            ['16', '16要有', '12', '事故 传递温暖 歌手 讲故事'],
+            ['17', '17地陷', '89', '事故 传递温暖 歌手 讲故事'],
+            ['18', '18城', 'ddd', '事故 传递温暖 歌手 讲故事']
+        ],
+        [
+            ['21', '21录音', 'Record', '事故 传递温暖 歌手 讲故事'],
+            ['22', '22中国', 'aaaa', '事故 传递温暖 歌手 讲故事'],
+            ['23', '23世界', 'bbb', '事故 传递温暖 歌手 讲故事'],
+            ['24', '24飞', 'ccc', '事故 传递温暖 歌手 讲故事'],
+            ['25', '25魂牵梦萦', '44', '事故 传递温暖 歌手 讲故事'],
+            ['26', '26要有', '12', '事故 传递温暖 歌手 讲故事'],
+            ['27', '27地陷', '89', '事故 传递温暖 歌手 讲故事'],
+            ['28', '28城', 'ddd', '事故 传递温暖 歌手 讲故事']
+        ],
+        [
+            ['31', '31录音', 'Record', '事故 传递温暖 歌手 讲故事'],
+            ['32', '32中国', 'aaaa', '事故 传递温暖 歌手 讲故事'],
+            ['33', '33世界', 'bbb', '事故 传递温暖 歌手 讲故事'],
+            ['34', '34飞', 'ccc', '事故 传递温暖 歌手 讲故事'],
+            ['35', '35魂牵梦萦', '44', '事故 传递温暖 歌手 讲故事'],
+            ['36', '36要有', '12', '事故 传递温暖 歌手 讲故事'],
+            ['37', '37地陷', '89', '事故 传递温暖 歌手 讲故事'],
+            ['38', '38城', 'ddd', '事故 传递温暖 歌手 讲故事']
+        ],
+        [
+            ['41', '41录音', 'Record', '事故 传递温暖 歌手 讲故事'],
+            ['42', '42中国', 'aaaa', '事故 传递温暖 歌手 讲故事'],
+            ['43', '43世界', 'bbb', '事故 传递温暖 歌手 讲故事'],
+            ['44', '44飞', 'ccc', '事故 传递温暖 歌手 讲故事'],
+            ['45', '45魂牵梦萦', '44', '事故 传递温暖 歌手 讲故事'],
+            ['46', '46要有', '12', '事故 传递温暖 歌手 讲故事'],
+            ['47', '47地陷', '89', '事故 传递温暖 歌手 讲故事'],
+            ['48', '48城', 'ddd', '事故 传递温暖 歌手 讲故事']
+        ],
+        [
+            ['51', '51录音', 'Record', '事故 传递温暖 歌手 讲故事'],
+            ['52', '52中国', 'aaaa', '事故 传递温暖 歌手 讲故事'],
+            ['53', '53世界', 'bbb', '事故 传递温暖 歌手 讲故事'],
+            ['54', '54飞', 'ccc', '事故 传递温暖 歌手 讲故事'],
+            ['55', '55魂牵梦萦', '44', '事故 传递温暖 歌手 讲故事'],
+            ['56', '56要有', '12', '事故 传递温暖 歌手 讲故事'],
+            ['57', '57地陷', '89', '事故 传递温暖 歌手 讲故事'],
+            ['58', '58城', 'ddd', '事故 传递温暖 歌手 讲故事']
+        ]
+            ],
+        arrPlayer1 = [],
+        arrPlayer2 = [],
+        arrPlayer3 = [],
+        arrPlayer4 = [];
+    function dealCards(player, arrPlayer) {
+        var numCards = arrCards.length;
+        for (var i = 0; i < numCards; i++) {
+            var numCard = arrCards[i].length;
+            var numRound = parseInt(Math.random() * 1000) % numCard;
+            arrPlayer.push(arrCards[i].splice(numRound, 1));
+        }
+        showCards(player, arrPlayer);
+    }
+    function showCards(player , arrPlayer) {
+        $(player).find('.card').each(function(i) {
+            $(this).children('img').attr('src', 'http://getimg.in/' + arrPlayer[i][0][0])
+                   .next('.name').text(arrPlayer[i][0][1])
+                   .next('.name-en').text(arrPlayer[i][0][2])
+                   .next('.txt').text(arrPlayer[i][0][3])
+        });
+    }
+    dealCards('#Player1', arrPlayer1);
+</script>
+</body>
+</html>
