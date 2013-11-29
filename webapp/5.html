@@ -4,19 +4,26 @@
     <meta http-equiv="X-UA-Compatible" content="edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>evif</title>
+    <title>5DCard</title>
     <style>
-        body{background-color:#333; font-size:14px;}
+        html{margin:0; padding:0;}
+        body{background-color:#333; font-size:14px; margin:0; padding:0;}
         .player{overflow:hidden;}
-        .card{float:left; width:100px; padding:10px; text-align:center; border:#fff solid 1px; background-color:#fff; color:#000;}
+        .card{float:left; width:84px; height:190px; padding:10px; text-align:center; border:#123 solid 1px; background-color:#fff; color:#000; display:none;}
+        .card img{width:60px;}
+        button{width:100px; height:35px; display:block;}
     </style>
 </head>
 <body>
-<button type="button">给player1分牌</button>
-<button type="button">给player2分牌</button>
-<button type="button">给player3分牌</button>
-<button type="button">给player4分牌</button>
-<button type="button">收回所有的牌</button>
+<div style="position:fixed; bottom:5px; right:5px;">
+    <span class="deal">
+        <button type="button" onclick="dealCards('#Player1', arrPlayer1);">给player1分牌</button>
+        <button type="button" onclick="dealCards('#Player2', arrPlayer2);">给player2分牌</button>
+        <button type="button" onclick="dealCards('#Player3', arrPlayer3);">给player3分牌</button>
+        <button type="button" onclick="dealCards('#Player4', arrPlayer4);">给player4分牌</button>
+    </span>
+    <button type="button" class="back" onclick="clearCards();">收回所有的牌</button>
+</div>
 <div class="player" id="Player1">
     <div class="card">
         <img src="http://getimg.in/10">
@@ -81,7 +88,7 @@
         <div class="txt">文字</div>
     </div>
 </div>
-<div class="player" id="Player2">
+<div class="player" id="Player3">
     <div class="card">
         <img src="http://getimg.in/10">
         <p class="name">名字</p>
@@ -203,24 +210,31 @@
         arrPlayer2 = [],
         arrPlayer3 = [],
         arrPlayer4 = [];
+
     function dealCards(player, arrPlayer) {
-        var numCards = arrCards.length;
-        for (var i = 0; i < numCards; i++) {
-            var numCard = arrCards[i].length;
-            var numRound = parseInt(Math.random() * 1000) % numCard;
-            arrPlayer.push(arrCards[i].splice(numRound, 1));
+        if (arrPlayer.length == 0) {
+            var numCards = arrCards.length;
+            for (var i = 0; i < numCards; i++) {
+                var numCard = arrCards[i].length;
+                var numRound = parseInt(Math.random() * 1000) % numCard;
+                arrPlayer.push(arrCards[i].splice(numRound, 1));
+            }
+            $(player).find('.card').each(function(i) {
+                $(this).children('img').attr('src', 'http://getimg.in/' + arrPlayer[i][0][0])
+                        .next('.name').text(arrPlayer[i][0][1])
+                        .next('.name-en').text(arrPlayer[i][0][2])
+                        .next('.txt').text(arrPlayer[i][0][3])
+                        .parent('.card').show();
+            });
         }
-        showCards(player, arrPlayer);
+//        console.log(arrPlayer)
     }
-    function showCards(player , arrPlayer) {
-        $(player).find('.card').each(function(i) {
-            $(this).children('img').attr('src', 'http://getimg.in/' + arrPlayer[i][0][0])
-                   .next('.name').text(arrPlayer[i][0][1])
-                   .next('.name-en').text(arrPlayer[i][0][2])
-                   .next('.txt').text(arrPlayer[i][0][3])
-        });
+
+    function clearCards() {
+        location=location;
     }
-    dealCards('#Player1', arrPlayer1);
+//    console.log(arrCards)
+
 </script>
 </body>
 </html>
