@@ -51,10 +51,10 @@ echo filetype("C:\WINDOWS") . "<br>";
 <hr>
 <?
 if (!@$f = fopen("num.txt", "r")) {
-    echo "鏂囦欢涓嶅瓨鍦紒";
+    echo "文件不存在！";
     $num = 0;
 } else {
-    $num = fgets($f, 10); //鑾峰緱9
+    $num = fgets($f, 10); //获得9
     fclose($f);
 }
 $num++;
