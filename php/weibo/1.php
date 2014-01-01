@@ -19,30 +19,22 @@ $user_message = $c->show_user_by_id( $uid);//根据ID获取用户等基本信息
 </head>
 
 <body>
-	<?=$user_message['screen_name']?>,您好！ 
-	<h2 align="left">发送新微博</h2>
-	<form action="" >
-		<input type="text" name="text" style="width:300px" />
-		<input type="submit" />
-	</form>
 <?php
-if( isset($_REQUEST['text']) ) {
-	$ret = $c->update( $_REQUEST['text'] );	//发送微博
-	if ( isset($ret['error_code']) && $ret['error_code'] > 0 ) {
-		echo "<p>发送失败，错误：{$ret['error_code']}:{$ret['error']}</p>";
-	} else {
-		echo "<p>发送成功</p>";
-	}
+if(!empty($_POST['sub'])){
+    $c->update($_POST['con']);
+}
+if(!empty($_POST['sub2'])){
+    $c->follow_by_name($_POST['username']);
 }
 ?>
-
-<?php if( is_array( $ms['statuses'] ) ): ?>
-<?php foreach( $ms['statuses'] as $item ): ?>
-<div style="padding:10px;margin:5px;border:1px solid #ccc">
-	<?=$item['text'];?>
-</div>
-<?php endforeach; ?>
-<?php endif; ?>
+<form action="" method="post">
+    <input type="text" name="con">
+    <input type="submit" name="sub" value="发表微博">
+</form>
+<form action="" method="post">
+    <input type="text" name="username">
+    <input type="submit" name="sub2" value="关注某人">
+</form>
 
 </body>
 </html>
