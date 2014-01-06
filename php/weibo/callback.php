@@ -21,6 +21,8 @@ if ($token) {
 	setcookie( 'weibojs_'.$o->client_id, http_build_query($token) );
 ?>
 授权完成,<a href="weibolist.php">进入你的微博列表页面</a><br />
+授权完成,<a href="1.php">进入发微博关注人页面</a><br />
+授权完成,<a href="2.php">进入生成图片页面</a><br />
 <?php
 } else {
 ?>
